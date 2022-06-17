@@ -31,25 +31,41 @@ class TaskFormViewModel(application: Application) : AndroidViewModel(application
         mPriorityList.value = mPriorityRepository.list()
     }
 
-    fun save(task: TaskModel){
-        mTaskRepository.create(task, object : APIListener<Boolean>{
+    fun save(task: TaskModel) {
 
-            override fun onFailure(str: String) {
-                mValidation.value = ValidationListener(str)
-            }
+        if (task.id == 0){
+            mTaskRepository.create(task, object : APIListener<Boolean> {
 
-            override fun onSuccess(model: Boolean) {
-                mValidation.value = ValidationListener()
-            }
+                override fun onFailure(str: String) {
+                    mValidation.value = ValidationListener(str)
+                }
 
-        })
+                override fun onSuccess(model: Boolean) {
+                    mValidation.value = ValidationListener()
+                }
+
+            })
+        } else {
+            mTaskRepository.update(task, object : APIListener<Boolean> {
+
+                override fun onFailure(str: String) {
+                    mValidation.value = ValidationListener(str)
+                }
+
+                override fun onSuccess(model: Boolean) {
+                    mValidation.value = ValidationListener()
+                }
+
+            })
+
+        }
     }
 
     fun load(id: Int) {
         mTaskRepository.load(id, object : APIListener<TaskModel>{
 
             override fun onFailure(str: String) {
-                TODO("Not yet implemented")
+
             }
 
             override fun onSuccess(model: TaskModel) {

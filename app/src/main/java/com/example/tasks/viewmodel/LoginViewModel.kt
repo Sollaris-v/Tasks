@@ -24,7 +24,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
 
     private val mLoggedUser = MutableLiveData<Boolean>()
-    var loggedUser : LiveData<Boolean> = mLoggedUser
+    val loggedUser : LiveData<Boolean> = mLoggedUser
 
     /**
      * Faz login usando API

@@ -18,8 +18,8 @@ interface PersonService {
     @POST("Authentication/Create")
     @FormUrlEncoded
     fun create(
-        @Field("email") name: String,
-        @Field("password") email: String,
+        @Field("name") name: String,
+        @Field("email") email: String,
         @Field("password") password: String
     ): Call<HeaderModel>
 }
